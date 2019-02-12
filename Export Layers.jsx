@@ -38,7 +38,6 @@ unlockAllLayers = function(parent) {
   results = [];
   for (i = 0, len = parent.length; i < len; i++) {
     layer = parent[i];
-    $.write(layer.name);
     layer.locked = false;
     layer.visible = true;
     results.push(unlockAllLayers(layer.layers));

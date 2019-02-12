@@ -10,17 +10,18 @@ class LayerExporter
     app.pasteRemembersLayers = true
     app.activeDocument.selection = null
 
+    # Recursively unlock and make visible all layers
     unlockAllLayers(app.activeDocument.layers)
 
+    @outputFolder = Folder.selectDialog ('Choose output folder.');
     @exportLayers app.activeDocument
+    alert("All layers have been exported to #{@outputFolder}/!")
 
   exportLayers: (root) ->
     for layer in root.layers
-
       layer.hasSelectedArtwork = true
       app.copy()
-
-      file = new File("~/Desktop/" + layer.name + ".ai" );
+      file = new File(@outputFolder + "/" + layer.name + ".ai" );
       doc = app.documents.add(DocumentColorSpace.RGB, 1920, 1080);
       app.executeMenuCommand("pasteInPlace");
       app.pasteRememberLayers = true
